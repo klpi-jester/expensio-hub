@@ -1,0 +1,26 @@
+{
+  // Expensio Hub — Cloudflare Workers config for @opennextjs/cloudflare.
+  // Consumed by: `npm run deploy` / `npm run preview` (wrangler under the hood).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "expensio-hub",
+  "main": ".open-next/worker.js",
+  // Recent compatibility date required by OpenNext + Next.js 16.
+  "compatibility_date": "2026-01-01",
+  // REQUIRED: OpenNext needs Node built-ins (Buffer, stream, etc.) on the V8 Worker.
+  // Its absence is the usual cause of runtime "Error 1101: Worker threw exception".
+  "compatibility_flags": ["nodejs_compat"],
+  // Static assets emitted by OpenNext (/_next/static, public/).
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+  // Public runtime vars. NEXT_PUBLIC_* are also inlined at build time; this is a
+  // runtime fallback. Add non-public/server-only values with:
+  //   wrangler secret put SUPABASE_SECRET_KEY   (never commit secrets here)
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://pos.expensio.com"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
